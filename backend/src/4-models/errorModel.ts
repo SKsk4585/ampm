@@ -9,7 +9,7 @@ export class routNotFoundErrorModel extends ErrorModel{
 }
 
 export class resonceNotFoundErrorModel extends ErrorModel{
-    public constructor (id:string){
+    public constructor (id:number){
         super(404, `the ${id}is not exsist`)
     }
 }

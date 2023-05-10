@@ -1,7 +1,8 @@
-// import { OkPacket } from "mysql";
+import { OkPacket } from "mysql";
 import dal from "../2-utils/dal";
 import AmpmCategoryModel from "../4-models/ampmCategoryModel";
 import AmpmStoreModel from "../4-models/ampmStoreModel";
+import { resonceNotFoundErrorModel } from "../4-models/errorModel";
 
 
 
@@ -22,40 +23,42 @@ async function getaAllCategoryByCategoryId (categoryId:number):Promise<AmpmStore
     const sql = `SELECT A.*, C.categoryName
                  FROM ampmstore AS A JOIN ampmcategory AS C
                  ON A.categoryId = C.categoryId
-                 WHERW A.categoryId = ${categoryId}`
+                 WHERE A.categoryId = ${categoryId}`
     const ampm = await dal.execute(sql)
     return ampm
 }
 
 
 
-// async function addBook(bookstorproduct:BookModel):Promise<BookModel>{
-//     const sql = `INSERT INTO booksstorproducts
-//                 VALUES(DEFAULT,
-//                         ${bookstorproduct.genreId},
-//                         "${bookstorproduct.bookName}",
-//                         "${bookstorproduct.summary}",
-//                         "${bookstorproduct.price}",
-//                         ${bookstorproduct.stock}                       
+async function addProduct(product:AmpmStoreModel):Promise<AmpmStoreModel>{
+    const sql = `INSERT INTO ampmstore
+                VALUES(DEFAULT,
+                        ${product.categoryId},
+                        "${product.productName}",
+                        "${product.timeOfReation}",
+                        "${product.timeOfExpiration}",
+                        ${product.price}                       
                         
-//                         )`
-//     const info:OkPacket = await dal.execute(sql)
-//     bookstorproduct.bookId = info.insertId
-//     return bookstorproduct
-// }
+                        )`
+    const info:OkPacket = await dal.execute(sql)
+    product.ampmId = info.insertId
+    return product
+}
 
 
-// async function deleteBook(bookId: number):Promise<void>{
-//     const sql = `DELETE FROM booksstorproducts
-//                  WHERE bookId = ${bookId}`;
+async function deleteProduct(ampmId: number):Promise<void>{
+    const sql = `DELETE FROM ampmstore
+                 WHERE ampmId = ${ampmId}`;
                                 
-//     // const info:OkPacket = await dal.execute(sq+
-
+    const info:OkPacket = await dal.execute(sql)
+    if(info.affectedRows === 0) throw new resonceNotFoundErrorModel(ampmId)
+    }
 
 
 export default {
     getaAllAmpmStore,
     getaAllCategory,
-    getaAllCategoryByCategoryId
-    // deleteBook
+    getaAllCategoryByCategoryId,
+    addProduct,
+    deleteProduct
 }

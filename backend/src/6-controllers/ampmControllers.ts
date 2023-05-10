@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response, response } from "express"
 //import { request } from "http"
 import ampmLogic from "../5-logic/ampmLogic"
+import AmpmStoreModel from "../4-models/ampmStoreModel"
 
 const router = express.Router()
 
@@ -33,7 +34,7 @@ router.get("/ampm-get-all-category", async(request:Request, response:Response,ne
 //get all store by category model
 router.get("/get-all-store-by-category-id/:categoryId", async(request:Request, response:Response,next:NextFunction)=>{
     try {
-        const categoryId = +request.params.ampmId
+        const categoryId = +request.params.categoryId
         const ampm = await ampmLogic.getaAllCategoryByCategoryId(categoryId)
         response.json(ampm)
         
@@ -44,32 +45,32 @@ router.get("/get-all-store-by-category-id/:categoryId", async(request:Request, r
     }
 })
 
-// //add book
-// router.post("/books", async(request:Request,response:Response,next:NextFunction)=>{
-//     try {
-//        const bookstorproduct = new BookModel(request.body)
-//        const addedBook = await booksLogic.addBook(bookstorproduct)
-//        response.status(201).json(addedBook)
-//     } 
-//     catch (error) {
-//         next(error)
+//add book
+router.post("/add-product", async(request:Request,response:Response,next:NextFunction)=>{
+    try {
+       const product = new AmpmStoreModel(request.body)
+       const addedProduct = await ampmLogic.addProduct(product)
+       response.status(201).json(addedProduct)
+    } 
+    catch (error) {
+        next(error)
         
-//     }
-// })
+    }
+})
 
 
-// //delete
-// router.delete("/delete-books/:bookId", async(request:Request,response:Response,next:NextFunction)=>{
-//     try {
-//        const bookId = +request.params.bookId
-//        await booksLogic.deleteBook(bookId)
-//        response.sendStatus(204)
-//     } 
-//     catch (error: any) {
-//         next(error)
+//delete
+router.delete("/delete-product/:ampmId", async(request:Request,response:Response,next:NextFunction)=>{
+    try {
+       const ampmId = +request.params.ampmId
+       await ampmLogic.deleteProduct(ampmId)
+       response.sendStatus(204)
+    } 
+    catch (error: any) {
+        next(error)
         
-//     }
-// })
+    }
+})
 
 
 

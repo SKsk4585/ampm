@@ -36,7 +36,8 @@ public async deleteProduct(ampmId:number):Promise<void>{
     await axios.delete(appConfig.deleteProduct + ampmId);
 }
 }
+const ampmSrvice = new AmpmService()
 
-export default AmpmService
+export default ampmSrvice
 
 

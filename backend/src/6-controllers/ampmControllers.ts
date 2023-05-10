@@ -17,6 +17,19 @@ router.get("/ampm-get-all-store", async(request:Request, response:Response,next:
     }
 })
 
+//get all category
+router.get("/ampm-get-all-category", async(request:Request, response:Response,next:NextFunction)=>{
+    try {
+        const ampm = await ampmLogic.getaAllCategory()
+        response.json(ampm)
+        
+    } 
+    catch (error) {
+        next(error)
+        
+    }
+})
+
 // //get all books
 // router.get("/get-all-books", async(request:Request, response:Response,next:NextFunction)=>{
 //     try {

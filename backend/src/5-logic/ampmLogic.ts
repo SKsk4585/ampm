@@ -1,5 +1,6 @@
 // import { OkPacket } from "mysql";
 import dal from "../2-utils/dal";
+import AmpmCategoryModel from "../4-models/ampmCategoryModel";
 import AmpmStoreModel from "../4-models/ampmStoreModel";
 
 
@@ -11,12 +12,11 @@ async function getaAllAmpmStore():Promise<AmpmStoreModel[]>{
     return ampm
 }
 
-
-// async function getaAllBooks():Promise<BookModel[]>{
-//     const sql = `SELECT * FROM booksstorproducts `
-//     const books = await dal.execute(sql)
-//     return books
-// }
+async function getaAllCategory():Promise<AmpmCategoryModel[]>{
+    const sql = `SELECT * FROM ampmcategory `
+    const ampm = await dal.execute(sql)
+    return ampm
+}
 
 
 
@@ -48,7 +48,7 @@ async function getaAllAmpmStore():Promise<AmpmStoreModel[]>{
 
 export default {
     getaAllAmpmStore,
-    // getaAllBooks,
+    getaAllCategory
     // addBook,
     // deleteBook
 }

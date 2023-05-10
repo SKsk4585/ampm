@@ -28,7 +28,7 @@ public async getaAllCategoryByCategoryId (categoryId:number):Promise<AmpmStoreMo
 
 
 public async addProduct(product: AmpmStoreModel): Promise<void> {
-    await axios.post<AmpmStoreModel>(appConfig.deleteProduct, product);
+    await axios.post<AmpmStoreModel>(appConfig.addProduct, product);
 }
 
 

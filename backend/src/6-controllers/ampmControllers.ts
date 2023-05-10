@@ -30,18 +30,19 @@ router.get("/ampm-get-all-category", async(request:Request, response:Response,ne
     }
 })
 
-// //get all books
-// router.get("/get-all-books", async(request:Request, response:Response,next:NextFunction)=>{
-//     try {
-//         const books = await booksLogic.getaAllBooks()
-//         response.json(books)
+//get all store by category model
+router.get("/get-all-store-by-category-id/:categoryId", async(request:Request, response:Response,next:NextFunction)=>{
+    try {
+        const categoryId = +request.params.ampmId
+        const ampm = await ampmLogic.getaAllCategoryByCategoryId(categoryId)
+        response.json(ampm)
         
-//     } 
-//     catch (error) {
-//         next(error)
+    } 
+    catch (error) {
+        next(error)
         
-//     }
-// })
+    }
+})
 
 // //add book
 // router.post("/books", async(request:Request,response:Response,next:NextFunction)=>{

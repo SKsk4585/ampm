@@ -18,6 +18,15 @@ async function getaAllCategory():Promise<AmpmCategoryModel[]>{
     return ampm
 }
 
+async function getaAllCategoryByCategoryId (categoryId:number):Promise<AmpmStoreModel[]>{
+    const sql = `SELECT A.*, C.categoryName
+                 FROM ampmstore AS A JOIN ampmcategory AS C
+                 ON A.categoryId = C.categoryId
+                 WHERW A.categoryId = ${categoryId}`
+    const ampm = await dal.execute(sql)
+    return ampm
+}
+
 
 
 // async function addBook(bookstorproduct:BookModel):Promise<BookModel>{
@@ -40,15 +49,13 @@ async function getaAllCategory():Promise<AmpmCategoryModel[]>{
 //     const sql = `DELETE FROM booksstorproducts
 //                  WHERE bookId = ${bookId}`;
                                 
-//     // const info:OkPacket = await dal.execute(sql)
-//     // if(info.affectedRows === 0) throw new resonceNotFoundErrorModel(bookId)
-// }
+//     // const info:OkPacket = await dal.execute(sq+
 
 
 
 export default {
     getaAllAmpmStore,
-    getaAllCategory
-    // addBook,
+    getaAllCategory,
+    getaAllCategoryByCategoryId
     // deleteBook
 }
